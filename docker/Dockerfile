@@ -44,9 +44,9 @@ RUN composer install --no-dev --ignore-platform-reqs --no-interaction
 
 FROM node:22 AS build_frontend
 WORKDIR /app
-COPY --from=build_composer / /app
+COPY --from=build_composer /app /app
 
-RUN npm install
+RUN npm ci
 RUN npm run build
 RUN rm -rf node_modules
 
