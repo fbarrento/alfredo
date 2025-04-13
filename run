@@ -21,12 +21,16 @@ function composerInstallInsideAnEphemeralContainer {
         composer install --ignore-platform-reqs --no-scripts
 }
 
-function compose:use() {
+function compose:use {
     rm -f docker-compose.yml
     ln -s docker-compose.$1.yml docker-compose.yml
 }
 
-function compose:build-with-ids() {
+function bash {
+    docker compose exec webapp bash
+}
+
+function compose:build-with-ids {
     USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose build
 }
 

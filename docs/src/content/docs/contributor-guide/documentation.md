@@ -1,6 +1,6 @@
 ---
-title: Documentation
-description: Contribute to Documentation
+title: Contribute with Documentation
+description: Contribute with Documentation
 sidebar:
     order: 2
 ---

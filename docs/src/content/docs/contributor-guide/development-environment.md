@@ -7,17 +7,29 @@ sidebar:
 
 ## Up and running
 
+We use Docker for the development, make sure you have it installed and running.
+
 - Clone/fork the repo.
 - Install `composer` and `npm` dependencies
   ```bash title="Install dependencies"
   cp .env.example .env
-  composer install
-  sail up -d
-  sail npm ci
-  sail npm run build
+  ./run compose:use dev
+  ./run composerInstallInsideAnEphemeralContainer
+  ./run compose:build-with-ids
+  docker compose up -d
+  ./run bash # Enter the container
+  php artisan key:generate
+  php artisan migrate:fresh --seed
+  ```
+- Run Vite
+  ```bash title="Run Vite development server"
+  ./run bash # Enter the container
+  npm ci
+  npm run build
   ```
 - You should now be able to run the PHP tests.
   ```bash title="PHP Tests"
-  sail composer test
+  ./run bash # Enter the container
+  composer test
   ```
 
