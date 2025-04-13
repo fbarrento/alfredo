@@ -28,12 +28,12 @@ export default function Welcome() {
                                 >
                                     Log in
                                 </Link>
-                                <Link
-                                    href={route('register')}
-                                    className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                                >
-                                    Register
-                                </Link>
+                                {/*<Link*/}
+                                {/*    href={route('register')}*/}
+                                {/*    className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"*/}
+                                {/*>*/}
+                                {/*    Register*/}
+                                {/*</Link>*/}
                             </>
                         )}
                     </nav>
@@ -114,11 +114,10 @@ export default function Welcome() {
                             <ul className="flex gap-3 text-sm leading-normal">
                                 <li>
                                     <a
-                                        href="https://cloud.laravel.com"
-                                        target="_blank"
+                                        href={route('login')}
                                         className="inline-block rounded-sm border border-black bg-[#1b1b18] px-5 py-1.5 text-sm leading-normal text-white hover:border-black hover:bg-black dark:border-[#eeeeec] dark:bg-[#eeeeec] dark:text-[#1C1C1A] dark:hover:border-white dark:hover:bg-white"
                                     >
-                                        Deploy now
+                                        Login
                                     </a>
                                 </li>
                             </ul>
