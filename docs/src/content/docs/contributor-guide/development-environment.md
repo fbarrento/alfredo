@@ -10,6 +10,7 @@ sidebar:
 We use Docker for the development, make sure you have it installed and running.
 
 - Clone/fork the repo.
+
 - Install `composer` and `npm` dependencies
   ```bash title="Install dependencies"
   cp .env.example .env
@@ -21,12 +22,15 @@ We use Docker for the development, make sure you have it installed and running.
   php artisan key:generate
   php artisan migrate:fresh --seed
   ```
+  You should now be able to run the app in your browser.
+
 - Run Vite
   ```bash title="Run Vite development server"
   ./run bash # Enter the container
   npm ci
-  npm run build
+  npm run dev
   ```
+
 - You should now be able to run the PHP tests.
   ```bash title="PHP Tests"
   ./run bash # Enter the container

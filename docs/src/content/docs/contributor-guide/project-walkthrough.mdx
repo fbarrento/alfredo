@@ -4,25 +4,11 @@ description: Get to know the structure
 sidebar:
     order: 4
 ---
-The Playground's home page is a list of the `Showcases` available.
+
+![Remote install](../../../assets/Remote+install.png)
+
+Alfredo is a self-hosting assistant that helps you to install applications on your server.
+
+The concept is to remotely install applications on your server.
 
 
-![Playground Welcome](../../../assets/Playground-Welcome.png)
-
-We might want to add one, for a new feature. We should then add a Showcase, and a description.
-
-They are defined in `app/Showcases.php`:
-
-This will add an entry to the welcome and allow contributors to have an overview with context.
-
-```php
-    // ...
-
-    new Showcase(
-        title: 'React Simple',
-        description: 'A simple "Hello World" example.',
-        routeName: 'react-simple',
-    ),
-
-    // ....
-```

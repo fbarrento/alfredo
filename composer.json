@@ -1,11 +1,16 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/react-starter-kit",
+    "name": "getalfredo/alfredo",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "Your friendly self-hosting assistant.",
     "keywords": [
-        "laravel",
-        "framework"
+        "dashboard",
+        "installer",
+        "servers",
+        "automation",
+        "devops",
+        "applications",
+        "self-hosting"
     ],
     "license": "MIT",
     "require": {
