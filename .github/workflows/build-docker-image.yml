@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: Build Alfredo Docker Image
 
 on:
   workflow_dispatch:
