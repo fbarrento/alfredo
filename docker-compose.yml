@@ -33,7 +33,7 @@ services:
             test: ["CMD", "healthcheck-queue"]
             start_period: 10s
 
-    schedule:
+    scheduler:
         <<: *laravel-base
         command: ["php", "/var/www/html/artisan", "schedule:work"]
         stop_signal: SIGTERM

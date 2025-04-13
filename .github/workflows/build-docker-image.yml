@@ -5,6 +5,10 @@ on:
   #push:
     #tags: ['*']
 
+permissions:
+  contents: read
+  packages: write
+
 env:
   REGISTRY: ghcr.io
   IMAGE_USER: getalfredo
