@@ -54,7 +54,7 @@ FROM development AS production
 
 USER root
 
-COPY ./docker/common/ansible.cfg /etc/ansible/ansible.cfg
+COPY ./docker/ansible.cfg /etc/ansible/ansible.cfg
 
 COPY --from=build_frontend / /var/www/html
 

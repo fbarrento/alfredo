@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -e
+
+function help {
+    echo "$0 <task> <args>"
+    echo "Tasks:"
+    compgen -A function | cat -n
+}
+
+function default {
+    help
+}
+
+function prod:build {
+    docker compose -f docker-compose.prod.yml build
+}
+
+function composerInstallInsideAnEphemeralContainer {
+    docker run --rm -w /app -v $PWD:/app composer:2 \
+        composer install --ignore-platform-reqs --no-scripts
+}
+
+function compose:use() {
+    rm -f docker-compose.yml
+    ln -s docker-compose.$1.yml docker-compose.yml
+}
+
+function compose:build-with-ids() {
+    USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose build
+}
+
+function build-image:browse {
+    run_id=$(gh workflow run --ref main build-docker-image.yml && \
+    sleep 4 && \
+    gh run list --workflow=build-docker-image.yml --limit=1 --json databaseId --jq '.[0].databaseId') && \
+    echo "Visiting: https://github.com/getalfredo/alfredo/actions/runs/$run_id"
+    open "https://github.com/getalfredo/alfredo/actions/runs/$run_id"
+}
+
+function build-image:watch {
+    gh workflow run build-docker-image.yml && \
+    sleep 4 && \
+    gh run watch $(gh run list --workflow=build-docker-image.yml --limit=1 --json databaseId --jq '.[0].databaseId')
+}
+
+TIMEFORMAT="Task completed in %3lR"
+time "${@:-default}"
