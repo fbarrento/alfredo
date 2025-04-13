@@ -2,8 +2,11 @@ name: Build Docs Docker Image
 
 on:
   workflow_dispatch:
-  #push:
-    #tags: ['*']
+  push:
+    branches:
+      - main
+    paths:
+      - docs/**/*
 
 permissions:
   contents: read

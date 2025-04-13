@@ -24,3 +24,4 @@ yarn-error.log
 /.zed
 docker-compose.yml
 docker-compose.test.yml
+run-prod
