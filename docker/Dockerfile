@@ -25,6 +25,10 @@ RUN echo "alias cda='composer dump-autoload'" >> /etc/bash.bashrc
 # Drop back to our unprivileged user
 USER www-data
 
+###################
+################### START DEVELOPMENT
+###################
+
 FROM base AS development
 
 # Switch to root so we can do root things
