@@ -63,12 +63,11 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: docs
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           platforms: ${{ env.TARGET_PLATFORMS }}
-          file: ./docker/Dockerfile
-          target: production
+          file: ./docs/Dockerfile
           cache-from: |
             type=local,src=/tmp/.buildx-cache
             type=local,src=${{ steps.composer-cache.outputs.dir }}
