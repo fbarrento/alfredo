@@ -63,7 +63,8 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           platforms: ${{ env.TARGET_PLATFORMS }}
-          file: ./docker/prod/Dockerfile
+          file: ./docker/Dockerfile
+          target: production
           cache-from: |
             type=local,src=/tmp/.buildx-cache
             type=local,src=${{ steps.composer-cache.outputs.dir }}

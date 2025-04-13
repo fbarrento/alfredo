@@ -1,28 +1,46 @@
+x-laravel-app: &laravel-base
+    image: ghcr.io/getalfredo/alfredo:${TAG:-latest}
+    build:
+        context: .
+        dockerfile: ./docker/Dockerfile
+        target: development
+        args:
+            USER_ID: ${USER_ID:-501}
+            GROUP_ID: ${GROUP_ID:-20}
+    environment:
+        SSL_MODE: "off"
+        AUTORUN_LARAVEL_STORAGE_LINK: true
+        AUTORUN_LARAVEL_MIGRATION: false
+    networks:
+        - web
+    extra_hosts:
+        - 'host.docker.internal:host-gateway'
+    volumes:
+        - .:/var/www/html
+        - ./docker/ansible.cfg:/etc/ansible/ansible.cfg
+
 services:
-    laravel.test:
-        build:
-            context: './vendor/laravel/sail/runtimes/8.4'
-            dockerfile: Dockerfile
-            args:
-                WWWGROUP: '${WWWGROUP}'
-        image: 'sail-8.4/app'
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
+    webapp:
+        <<: *laravel-base
         ports:
-            - '${APP_PORT:-80}:80'
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
-        environment:
-            WWWUSER: '${WWWUSER}'
-            LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
-            IGNITION_LOCAL_SITES_PATH: '${PWD}'
-        volumes:
-            - '.:/var/www/html'
-        networks:
-            - sail
-        depends_on:
-            - pgsql
+            - "${APP_PORT:-8080}:8080"
+
+    queue:
+        <<: *laravel-base
+        command: ["php", "/var/www/html/artisan", "queue:listen"]
+        stop_signal: SIGTERM
+        healthcheck:
+            test: ["CMD", "healthcheck-queue"]
+            start_period: 10s
+
+    schedule:
+        <<: *laravel-base
+        command: ["php", "/var/www/html/artisan", "schedule:work"]
+        stop_signal: SIGTERM
+        healthcheck:
+            test: ["CMD", "healthcheck-schedule"]
+            start_period: 10s
+
     pgsql:
         image: 'postgres:17'
         ports:
@@ -33,24 +51,19 @@ services:
             POSTGRES_USER: '${DB_USERNAME}'
             POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
         volumes:
-            - 'sail-pgsql:/var/lib/postgresql/data'
-            - './vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
+            - 'pgsql:/var/lib/postgresql/data'
+            - './database/seeders/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
         networks:
-            - sail
+            - web
         healthcheck:
-            test:
-                - CMD
-                - pg_isready
-                - '-q'
-                - '-d'
-                - '${DB_DATABASE}'
-                - '-U'
-                - '${DB_USERNAME}'
+            test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
             retries: 3
             timeout: 5s
+
 networks:
-    sail:
+    web:
         driver: bridge
+
 volumes:
-    sail-pgsql:
+    pgsql:
         driver: local
