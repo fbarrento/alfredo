@@ -5,6 +5,10 @@ on:
         branches:
             - develop
             - main
+            - docs/**/*
+        paths:
+            - '**'
+            - '!docs/**'
     pull_request:
         branches:
             - develop
