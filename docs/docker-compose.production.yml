@@ -1,6 +1,6 @@
 services:
   web:
-    image: alfredo-docs
+    image: ghcr.io/getalfredo/docs:${TAG:-latest}
     container_name: alfredo-docs
     networks: ['web']
     ports:
