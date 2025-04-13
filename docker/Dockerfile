@@ -4,8 +4,8 @@ FROM serversideup/php:8.4-fpm-nginx AS development
 USER root
 
 # Save the build arguments as a variable
-ARG USER_ID
-ARG GROUP_ID
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
 # Platform requirements
 RUN apt-get update ; apt-get install -y openssh-client git git-lfs jq software-properties-common
