@@ -1,0 +1,11 @@
+services:
+  web:
+    image: alfredo-docs
+    container_name: alfredo-docs
+    networks: ['web']
+    ports:
+      - "4321:4321"
+
+networks:
+  web:
+    external: true
