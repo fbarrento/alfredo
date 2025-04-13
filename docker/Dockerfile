@@ -42,11 +42,11 @@ WORKDIR /app
 COPY . /app
 RUN composer install --no-dev --ignore-platform-reqs --no-interaction
 
-FROM node:20 AS build_frontend
+FROM node:22 AS build_frontend
 WORKDIR /app
 COPY --from=build_composer / /app
 
-RUN npm ci
+RUN npm install
 RUN npm run build
 RUN rm -rf node_modules
 
