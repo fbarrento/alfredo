@@ -1,0 +1,25 @@
+name: Prune Registry
+
+on:
+  workflow_dispatch:
+  # schedule:
+    # - cron: 0 0 * * *
+
+env:
+  ORG_NAME: getalfredo
+  CONTAINER_NAME: alfredo
+
+jobs:
+  prune-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prune
+        uses: vlaurin/action-ghcr-prune@v0.5.0
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          organization: ${{ env.ORG_NAME }}
+          container: ${{ env.CONTAINER_NAME }}
+          dry-run: false # Dry-run first, then change to `false`
+          keep-younger-than: 0 # days
+          keep-last: 10
+          prune-untagged: true
