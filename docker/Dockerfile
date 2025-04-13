@@ -39,7 +39,7 @@ USER www-data
 
 FROM composer:2 AS build_composer
 WORKDIR /app
-COPY dev /app
+COPY . /app
 RUN composer install --no-dev --ignore-platform-reqs --no-interaction
 
 FROM node:20 AS build_frontend
