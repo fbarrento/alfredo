@@ -1,11 +1,7 @@
-FROM serversideup/php:8.4-fpm-nginx AS development
+FROM serversideup/php:8.4-fpm-nginx-bookworm AS base
 
 # Switch to root so we can do root things
 USER root
-
-# Save the build arguments as a variable
-ARG USER_ID=1000
-ARG GROUP_ID=1000
 
 # Platform requirements
 RUN apt-get update ; apt-get install -y openssh-client git git-lfs jq software-properties-common
@@ -25,6 +21,18 @@ RUN echo "alias ll='ls -al'" >> /etc/bash.bashrc
 RUN echo "alias a='php artisan'" >> /etc/bash.bashrc
 RUN echo "alias mfs='php artisan migrate:fresh --seed'" >> /etc/bash.bashrc
 RUN echo "alias cda='composer dump-autoload'" >> /etc/bash.bashrc
+
+# Drop back to our unprivileged user
+USER www-data
+
+FROM base AS development
+
+# Switch to root so we can do root things
+USER root
+
+# Save the build arguments as a variable
+ARG USER_ID
+ARG GROUP_ID
 
 # Change the UID and GID of www-data while and the file permissions for NGINX
 RUN docker-php-serversideup-set-id www-data $USER_ID:$GROUP_ID && \
@@ -50,17 +58,11 @@ RUN npm ci
 RUN npm run build
 RUN rm -rf node_modules
 
-FROM development AS production
+FROM base AS production
 
 USER root
 
-COPY ./docker/ansible.cfg /etc/ansible/ansible.cfg
-
-COPY --from=build_frontend / /var/www/html
-
-# Change the UID and GID of www-data while and the file permissions for NGINX
-RUN docker-php-serversideup-set-id www-data $USER_ID:$GROUP_ID && \
-    docker-php-serversideup-set-file-permissions --owner $USER_ID:$GROUP_ID --service nginx
+COPY --chown=www-data:www-data --from=build_frontend /app /var/www/html
 
 # Drop back to our unprivileged user
 USER www-data
