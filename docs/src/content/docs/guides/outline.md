@@ -1,6 +1,6 @@
 # Outline
 
-This outline has the bullets for the Alfredo usage guide. It guides the documentation for non-techie users and the development guide for developers.
+This outline has the bullets for the Alfredo usage guide. It guides the documentation for non-technical users and the development guide for developers.
 
 ## Install your first app
 
@@ -25,6 +25,14 @@ First, we need to get a server in our dashboard.
 
 With these topics secured, we can now configure the server with Alfredo. Under the hood, all it does is to connect to the server via SSH
 and apply configurations and commands for you. All the necessary things will be on the server, there is no vendor lock-in by Alfredo.
+
+:::info
+Things to ensure you have on the cloud provider before starting:
+- Server recovery console via your admin area on the cloud provider - direct root login without SSH 
+- Cloud provider Firewalls
+This is something typically all cloud providers have, but it's important to be aware of.
+:::
+
 
 ### Provisioning the server
 
