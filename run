@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Install an alias, to be able to simply execute `run`
+# echo 'alias run=./scripts/run' >> ~/.aliases
+
 set -e
 
 function help {

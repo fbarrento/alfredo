@@ -1,0 +1,35 @@
+#cloud-config
+
+groups:
+    - docker
+
+users:
+    -   name: alfredo
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        gecos: Default User
+        groups: docker
+        shell: /bin/bash
+        ssh_authorized_keys:
+            - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAD9hkJ8cKVPmmZm38V2aZNK6Rm/hwzSTMiT8EB6dvUv alfredo@dev
+
+package_update: true
+package_upgrade: true
+
+# Enable root login
+disable_root: false
+
+ssh_authorized_keys:
+    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAD9hkJ8cKVPmmZm38V2aZNK6Rm/hwzSTMiT8EB6dvUv alfredo@dev
+
+runcmd:
+    - sed -i 's/^#\?PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+    - systemctl restart sshd
+    # Install Docker
+    - apt-get update
+    - apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+    - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+    - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    - apt-get update
+    - apt-get install -y docker-ce docker-ce-cli containerd.io
+    - systemctl enable docker
+    - systemctl start docker

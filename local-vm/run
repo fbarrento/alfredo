@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# Install an alias, to be able to simply execute `run`
+# echo 'alias run=./scripts/run' >> ~/.aliases
+
+set -e
+
+function help {
+  echo "$0 <task> <args>"
+  echo "Tasks:"
+  compgen -A function | cat -n
+}
+
+function default {
+  help
+}
+
+function vm:info {
+    multipass list --format json | jq -r '.list[] | select(.name=="alfredo-test-server")'
+}
+
+function vm:create {
+    multipass launch -n alfredo-test-server --cloud-init ./cloud-init-config.yml
+}
+
+function vm:destroy {
+    multipass delete alfredo-test-server
+    multipass purge
+}
+
+function vm:start {
+    multipass start alfredo-test-server
+}
+
+function vm:stop {
+    multipass stop alfredo-test-server
+}
+
+function vm:sshCmd {
+    INSTANCE_IP=$(multipass list --format json | jq -r '.list[] | select(.name=="alfredo-test-server") | .ipv4[0]')
+    ssh \
+        -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking no" \
+        -i id_alfredo_dev $1@$INSTANCE_IP
+}
+
+function vm:ssh {
+    vm:sshCmd alfredo
+}
+
+function vm:root-ssh {
+    vm:sshCmd root
+}
+
+TIMEFORMAT="Task completed in %3lR"
+time "${@:-default}"
