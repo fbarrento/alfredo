@@ -1,8 +1,11 @@
-# Outline
+---
+title: Outline
+description: Outline for Alfredo documentation
+---
 
 This outline has the bullets for the Alfredo usage guide. It guides the documentation for non-technical users and the development guide for developers.
 
-## Install your first app
+# Install your first app
 
 First, we need to get a server in our dashboard.
 
@@ -12,7 +15,7 @@ First, we need to get a server in our dashboard.
   - 40 GB Disk
 - Supported OS versions: Ubuntu 24.04 (Probably Ubuntu 22.04 works fine as well, but all tests are done on 24.04)
 
-### The key principles
+## The key principles
 
 - We need a Server with a non-root user with sudo access, password-protected.
   This user connects to the server with an SSH-key, and then to run commands at sudo (administrator) level needs password access.
@@ -28,28 +31,28 @@ and apply configurations and commands for you. All the necessary things will be 
 
 :::info
 Things to ensure you have on the cloud provider before starting:
-- Server recovery console via your admin area on the cloud provider - direct root login without SSH 
+- Server recovery console via your admin area on the cloud provider - direct root login without SSH
 - Cloud provider Firewalls
-This is something typically all cloud providers have, but it's important to be aware of.
+  This is something typically all cloud providers have, but it's important to be aware of.
 :::
 
 
-### Provisioning the server
+## Provisioning the server
 
 As we've seen above, we need to have a server with a non-root user with sudo access, password-protected.
 
 We can do this in the following methods:
 
-#### Add existing server with non-root User
+### Add existing server with non-root User
 
 There is already a server with a created a non-root User, password protected for sudo.
- 
+
 - In Alfredo, we click on the "Add existing server with non-root User" function.
 - It then generates a key, and shows a command to install it.
 - We copy the command, and we paste it ourselves on an SSH session, while running as that user, in the server.
 - Click on "Start managing server".
-- 
-#### There is already a server with Root user only
+
+### There is already a server with Root user only
 
 There's an existing server with a root user only, and we want to create a non-root user with sudo access, password-protected.
 
@@ -65,7 +68,7 @@ usermod -aG sudo alfredo
 
 We can now proceed to add the server in Alfredo, like in the setup above (non-root user).
 
-#### There is no server yet
+### There is no server yet
 
 There is no server yet, and we want to create a new one.
 While we most probably will support to create servers via integration with API tokens, the initial version also
