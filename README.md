@@ -1,6 +1,12 @@
 # Alfredo
 
-Alfredo is a dashboard to "1-click install" self-hosted applications on your server.
-You may think of it as an "App Store" but for open source applications that you can host yourself.
+Alfredo is your friendly self-hosting assistant.
 
-For the documentation, please visit [docs](./docs/index.md).
+You may think of it as an "App Store" but for open source applications that you can host yourself.
+It has a catalog of "1-click install" self-hosted applications you may install on your servers.
+
+It has a dashboard so you can have a clear vision of your server and apps.
+
+You may also install your Git Applications, developed by you or your team, in the advanced mode.
+
+For the documentation, please visit [Alfredo Website]([./docs/index.md](https://getalfredo.com/)).
