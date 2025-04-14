@@ -35,4 +35,18 @@ return [
         ],
     ],
 
+    'ssh' => [
+        'key_comment' => 'tasker@taskerdev',
+
+        /**
+         * Only in Linux is possible to get this advantage
+         */
+        'mux_enabled' => env('SSH_MUX_ENABLED', false),
+
+        /**
+         * Use 'set -x' in the shell scripts to easily debug them.
+         */
+        'print_shell_commands' => false,
+    ],
+
 ];
