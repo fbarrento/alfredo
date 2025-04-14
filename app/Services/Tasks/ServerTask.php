@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tasks;
+namespace App\Services\Tasks;
 
 use App\Models\Server;
 use Illuminate\Support\Str;
@@ -14,9 +14,6 @@ abstract class ServerTask extends Component
 
     /**
      * Set the target server.
-     *
-     * @param Server $server
-     * @return ServerTask
      */
     public function setServer(Server $server): self
     {
@@ -51,9 +48,6 @@ abstract class ServerTask extends Component
 
     /**
      * Set the batch Uuid.
-     *
-     * @param string|null $batch_uuid
-     * @return ServerTask
      */
     public function setBatchUuid(?string $batch_uuid): ServerTask
     {
