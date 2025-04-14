@@ -2,7 +2,7 @@
 
 namespace App\View\Components\Tasks;
 
-use App\Tasks\ServerTask;
+use App\Services\Tasks\ServerTask;
 
 class GenerateEd25519KeyPair extends ServerTask
 {

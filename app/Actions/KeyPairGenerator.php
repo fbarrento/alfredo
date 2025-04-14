@@ -12,7 +12,15 @@ use Illuminate\Support\Facades\Process;
 
 class KeyPairGenerator
 {
-    public function ed25519(): KeyPair
+    public function handle(KeyPairType $type): KeyPair
+    {
+        return match ($type) {
+            KeyPairType::Ed25519 => $this->ed25519(),
+            default => throw new Exception('Invalid key pair type.'),
+        };
+    }
+
+    protected function ed25519(): KeyPair
     {
         $tmp_dir = TempDir::make();
 

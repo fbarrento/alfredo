@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Actions\KeyPairGenerator;
+use App\Enums\KeyPairType;
 use App\Enums\ServerStatus;
 use App\Services\KeyPair;
 use Illuminate\Database\Eloquent\Model;
@@ -28,10 +29,12 @@ class Server extends Model
     protected static function booted()
     {
         static::creating(function (Server $server) {
-            /** @var KeyPair $keyPair */
-            $keyPair = (app(KeyPairGenerator::class))->ed25519();
-            $server->private_key ??= $keyPair->privateKey;
-            $server->public_key ??= $keyPair->publicKey;
+            /** @var KeyPair $keyGenerator */
+            $keyGenerator = (app(KeyPairGenerator::class));
+
+            $key = $keyGenerator->handle(KeyPairType::Ed25519);
+            $server->private_key ??= $key->privateKey;
+            $server->public_key ??= $key->publicKey;
         });
     }
 
