@@ -51,5 +51,13 @@ function vm:root-ssh {
     vm:sshCmd root
 }
 
+function tunnel() {
+    USER=alfredo
+    INSTANCE_IP=$(multipass list --format json | jq -r '.list[] | select(.name=="alfredo-test-server") | .ipv4[0]')
+    ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking no" \
+            -i id_alfredo_dev \
+            -R 8080:localhost:8080 $USER@$INSTANCE_IP
+}
+
 TIMEFORMAT="Task completed in %3lR"
 time "${@:-default}"
