@@ -5,15 +5,11 @@ namespace App\Models;
 use App\Actions\KeyPairGenerator;
 use App\Enums\ServerStatus;
 use App\Services\KeyPair;
-use App\Tasks\DispatchesServerTasks;
 use Illuminate\Database\Eloquent\Model;
-use Sammyjo20\LaravelHaystack\Models\Haystack;
 use Spatie\Activitylog\Models\Activity;
 
 class Server extends Model
 {
-    use DispatchesServerTasks;
-
     public $hidden = [
         'private_key',
         'public_key',
