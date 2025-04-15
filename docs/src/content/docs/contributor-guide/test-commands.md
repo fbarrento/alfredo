@@ -14,6 +14,7 @@ php artisan app:test-ssh
 
 When connecting to the server, let's create a tunnel, so that we can access our host easily.
 The 8080 port on the server will be mapped to 8080 on our local machine.
+
 ```bash
 cd local-vm
 run tunnel
