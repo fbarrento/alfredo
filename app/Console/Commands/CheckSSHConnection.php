@@ -60,7 +60,7 @@ class CheckSSHConnection extends Command
         $this->line("SSH Log: " . $ssh->getLog());
         $this->line("SSH Errors: " . $ssh->getStdError());
 
-        dd('OK!');
+        $this->line('OK!');
     }
 
 }

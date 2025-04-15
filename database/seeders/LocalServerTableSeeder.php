@@ -25,8 +25,6 @@ class LocalServerTableSeeder extends Seeder
             'ssh_port' => 22,
             'username' => 'alfredo',
             'sudo_password' => null,
-            'private_key' => \File::get(base_path('local-vm/id_alfredo_dev')),
-            'public_key' => \File::get(base_path('local-vm/id_alfredo_dev.pub')),
         ]);
     }
 }

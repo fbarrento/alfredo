@@ -36,7 +36,7 @@ return [
     ],
 
     'ssh' => [
-        'key_comment' => 'tasker@taskerdev',
+        'key_comment' => 'alfredo@getalfredo.com',
 
         /**
          * Only in Linux is possible to get this advantage

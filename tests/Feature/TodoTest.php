@@ -7,4 +7,10 @@ it('cleans up TMP dirs', function () {})->todo("
     We can then have a purge function
 ");
 
+it('performs more checks on the install key script', function () {})->todo("
+    it can check for ubuntu OS >= 22.04
+    it can check user is sudoer
+    validates that public key is already added or not
+");
 
+it('needs a way to create a server with the default commited key', function () {})->todo("");
