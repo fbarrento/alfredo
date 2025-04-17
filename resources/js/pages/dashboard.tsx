@@ -30,7 +30,6 @@ interface DashboardProps {
 
 export default function Dashboard({ servers = [] }: DashboardProps) {
 
-    console.log(servers)
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -39,7 +38,7 @@ export default function Dashboard({ servers = [] }: DashboardProps) {
                 <div className="flex justify-between items-center mb-4">
                     <h1 className="text-2xl font-bold">Servers</h1>
                     <Link
-                        href="/servers/create"
+                        href={route('servers.create')}
                         className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-sm font-medium"
                         preserveState={true}
                     >
@@ -59,7 +58,7 @@ export default function Dashboard({ servers = [] }: DashboardProps) {
                             <h2 className="text-xl font-semibold mb-2">No servers found</h2>
                             <p className="text-muted-foreground mb-4">Get started by adding your first server</p>
                             <Link
-                                href="/servers/create"
+                                href={route('servers.create')}
                                 className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-sm font-medium"
                                 preserveState={true}
                             >

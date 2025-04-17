@@ -78,7 +78,7 @@ export function ServerCard({ server }: { server: ServerProps }) {
             </CardContent>
             <CardFooter className="justify-end">
                 <Link 
-                    href={`/servers/${server.id}`} 
+                    href={route('servers.show', server.id)} 
                     className="text-primary hover:underline text-sm font-medium"
                     preserveState={true}
                 >
